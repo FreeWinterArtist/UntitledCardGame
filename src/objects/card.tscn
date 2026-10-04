@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://bbxjvlgbg0jdr"]
+
+[ext_resource type="Script" uid="uid://2ko7c02slqm4" path="res://src/objects/card.gd" id="1_yydsh"]
+[ext_resource type="Texture2D" uid="uid://dmk6nfq6malbj" path="res://src/sprites/cards/digitSheet.png" id="2_ipjng"]
+
+[node name="card" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_yydsh")
+
+[node name="BorderRect" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(32, 64)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Value" type="Sprite2D" parent="BorderRect"]
+texture_filter = 1
+texture = ExtResource("2_ipjng")
+hframes = 9
