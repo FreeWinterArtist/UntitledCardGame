@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://bpcfrrtxkyurw"]
+
+[ext_resource type="Script" uid="uid://vontsepv6c3b" path="res://src/objects/enemy.gd" id="1_vomqg"]
+[ext_resource type="Texture2D" uid="uid://dmk6nfq6malbj" path="res://src/sprites/cards/digitSheet.png" id="2_hydtk"]
+[ext_resource type="Texture2D" uid="uid://dlibkyb3iiuhf" path="res://src/sprites/enemies/Slime.png" id="2_uo5xy"]
+
+[node name="Enemy" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 128.0
+offset_bottom = 128.0
+script = ExtResource("1_vomqg")
+enemy_type = null
+element = null
+health = null
+metadata/_edit_group_ = true
+
+[node name="EnemyRect" type="TextureRect" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
+scale = Vector2(2, 2)
+texture = ExtResource("2_uo5xy")
+
+[node name="Value" type="Sprite2D" parent="EnemyRect"]
+texture_filter = 1
+position = Vector2(11, 16)
+scale = Vector2(2, 2)
+texture = ExtResource("2_hydtk")
+hframes = 9

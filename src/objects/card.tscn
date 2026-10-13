@@ -15,6 +15,7 @@ offset_bottom = 80.0
 scale = Vector2(2, 2)
 script = ExtResource("1_yydsh")
 element = 0
+metadata/_edit_group_ = true
 
 [node name="CardRect" type="TextureRect" parent="."]
 texture_filter = 1
@@ -37,6 +38,3 @@ hframes = 9
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(20, 40)
 shape = SubResource("RectangleShape2D_ipjng")
-
-[connection signal="input_event" from="Area2D" to="." method="_on_mouse_release"]
-[connection signal="input_event" from="Area2D" to="." method="_on_mouse_hold"]

@@ -1,7 +1,60 @@
-[gd_scene format=3 uid="uid://c7m7qj8ed2rrj"]
+[gd_scene load_steps=5 format=3 uid="uid://c7m7qj8ed2rrj"]
+
+[ext_resource type="Script" uid="uid://dxr87e6syln2" path="res://src/objects/battle.gd" id="1_h57ps"]
+[ext_resource type="PackedScene" uid="uid://bbxjvlgbg0jdr" path="res://src/objects/card.tscn" id="1_u5osf"]
+[ext_resource type="PackedScene" uid="uid://bpcfrrtxkyurw" path="res://src/objects/enemy.tscn" id="2_h57ps"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u5osf"]
+size = Vector2(359, 34)
 
 [node name="Battle" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+script = ExtResource("1_h57ps")
+
+[node name="card" parent="." instance=ExtResource("1_u5osf")]
+offset_left = 6.0
+offset_top = 472.0
+offset_right = 46.0
+offset_bottom = 552.0
+
+[node name="Enemy" parent="." instance=ExtResource("2_h57ps")]
+offset_left = 111.0
+offset_top = 71.0
+offset_right = 239.0
+offset_bottom = 199.0
+enemy_type = 0
+element = 0
+health = 5
+
+[node name="card2" parent="." instance=ExtResource("1_u5osf")]
+offset_left = 93.0
+offset_top = 473.0
+offset_right = 133.0
+offset_bottom = 553.0
+element = 1
+
+[node name="card3" parent="." instance=ExtResource("1_u5osf")]
+offset_left = 179.0
+offset_top = 473.0
+offset_right = 219.0
+offset_bottom = 553.0
+element = 2
+
+[node name="card4" parent="." instance=ExtResource("1_u5osf")]
+offset_left = 266.0
+offset_top = 476.0
+offset_right = 306.0
+offset_bottom = 556.0
+element = 3
+
+[node name="ChosenCard" type="Area2D" parent="."]
+position = Vector2(11, 427)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChosenCard"]
+position = Vector2(169.5, -7)
+shape = SubResource("RectangleShape2D_u5osf")
+
+[connection signal="area_entered" from="ChosenCard" to="." method="_on_chosen_card_area_entered"]
