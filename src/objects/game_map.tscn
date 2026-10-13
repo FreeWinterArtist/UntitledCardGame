@@ -1,7 +1,49 @@
-[gd_scene format=3 uid="uid://blu6pfdhq3bff"]
+[gd_scene load_steps=2 format=3 uid="uid://blu6pfdhq3bff"]
 
-[node name="GameMap" type="Control"]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[ext_resource type="Script" uid="uid://drl28pl5nbmls" path="res://src/objects/game_map.gd" id="1_xordb"]
+
+[node name="GameMap" type="Node2D"]
+script = ExtResource("1_xordb")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="RoomsContainer" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="HintLabel" type="Label" parent="UI"]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -23.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 40
+
+[node name="BackButton" type="Button" parent="UI"]
+custom_minimum_size = Vector2(120, 120)
+offset_left = 40.0
+offset_top = 40.0
+offset_right = 160.0
+offset_bottom = 160.0
+theme_override_font_sizes/font_size = 60
+text = "←"
+
+[connection signal="pressed" from="UI/BackButton" to="." method="_on_back_button_pressed"]
