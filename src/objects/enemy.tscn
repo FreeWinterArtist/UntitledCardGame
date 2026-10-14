@@ -10,10 +10,6 @@ anchors_preset = 0
 offset_right = 128.0
 offset_bottom = 128.0
 script = ExtResource("1_vomqg")
-enemy_type = null
-element = null
-health = null
-metadata/_edit_group_ = true
 
 [node name="EnemyRect" type="TextureRect" parent="."]
 texture_filter = 1
@@ -29,3 +25,18 @@ position = Vector2(11, 16)
 scale = Vector2(2, 2)
 texture = ExtResource("2_hydtk")
 hframes = 9
+
+[node name="TurnData" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 123.0
+offset_right = 117.0
+offset_bottom = 163.0
+
+[node name="info" type="Label" parent="TurnData"]
+texture_filter = 1
+layout_mode = 2
+text = "Атака: "
+
+[node name="Element" type="TextureRect" parent="TurnData"]
+layout_mode = 2

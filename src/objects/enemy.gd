@@ -16,13 +16,17 @@ enum ElementType {Water,Fire,Plant,Earth,Life,Death}
 	set(value):
 		power=value
 		_update_graphics()
-@export var card:Card
 @onready var enemyRect: TextureRect = $EnemyRect
 @onready var enemyValue: Sprite2D= $EnemyRect/Value 
 
 @export var health:int=1
+var move_set:Array[Attack]
+var turns_quantity:int=len(move_set)
+var turn:int=0:
+	set(value):
+		turn=value%turns_quantity
 
-func execute_turn(enemyNode:Node,playerNode:Node):
+func execute_turn():
 	pass
 
 func _update_graphics()->void:
@@ -48,6 +52,7 @@ func _update_element()->void:
 		EnemyType.CursedAsh:
 			element=ElementType.Earth		
 
+
 func _validate_property(property: Dictionary) -> void:
 	if property.name=="element":
 		property.usage |=PROPERTY_USAGE_READ_ONLY
@@ -62,7 +67,11 @@ func _attach_bihavior()->void:
 func _ready() -> void:
 	_update_graphics()
 
-func _total_damage(enemy_element:String,enemy_damage:int,card_element:String,card_damage:int)->int:
+func _total_damage(enemy_attack:Attack,player_attack:Attack)->int:
+	var enemy_element:String=enemy_attack.element
+	var enemy_damage:int=enemy_attack.damage
+	var card_element:String=player_attack.element
+	var card_damage:int=player_attack.damage
 	if enemy_element=="Water" and card_element=="Fire":
 		enemy_damage*=2
 	if enemy_element=="Fire" and card_element=="Plant":
@@ -86,8 +95,7 @@ func _total_damage(enemy_element:String,enemy_damage:int,card_element:String,car
 		total_damage=0
 	
 	return total_damage
-func _take_damage(enemy_damage:int):
-	var damage:int=_total_damage(ElementType.keys()[element],enemy_damage,
-	ElementType.keys()[card.element],card.power)
+func take_damage(enemy_attack:Attack,player_attack:Attack):
+	var damage:int=_total_damage(enemy_attack,player_attack)
 	health-=damage
 	print(enemy_type," Received Damage! ",damage)
