@@ -1,0 +1,94 @@
+[gd_scene load_steps=2 format=3 uid="uid://crt0q6rr7vonv"]
+
+[ext_resource type="Script" uid="uid://cf25ia82ecmaf" path="res://options.gd" id="1_5v8ap"]
+
+[node name="Options" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5v8ap")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.20871, 0.20871, 0.20871, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.5
+offset_top = -153.5
+offset_right = 150.5
+offset_bottom = 153.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 40
+
+[node name="Title" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "OPTIONS"
+horizontal_alignment = 1
+
+[node name="MusicRow" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="MusicLabel" type="Label" parent="VBoxContainer/MusicRow"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Music"
+
+[node name="MusicSLider" type="HSlider" parent="VBoxContainer/MusicRow"]
+custom_minimum_size = Vector2(200, 40)
+layout_mode = 2
+value = 100.0
+
+[node name="SoundRow" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="SoundLabel" type="Label" parent="VBoxContainer/SoundRow"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Sounds"
+
+[node name="SoundSLider" type="HSlider" parent="VBoxContainer/SoundRow"]
+custom_minimum_size = Vector2(200, 40)
+layout_mode = 2
+value = 100.0
+
+[node name="LangRow" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="LangLabel" type="Label" parent="VBoxContainer/LangRow"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Language"
+
+[node name="LangOption" type="OptionButton" parent="VBoxContainer/LangRow"]
+custom_minimum_size = Vector2(170, 40)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+item_count = 2
+popup/item_0/text = "Русский"
+popup/item_0/id = 1
+popup/item_0/separator = true
+popup/item_1/text = "English"
+popup/item_1/id = 2
+popup/item_1/separator = true
