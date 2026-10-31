@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://c2lecurou7t8d"]
 
-[ext_resource type="Script" uid="uid://ekjgu8hhb4wk" path="res://src/objects/player.gd" id="1_06am8"]
+[ext_resource type="Script" path="res://src/objects/player.gd" id="1_06am8"]
 [ext_resource type="PackedScene" uid="uid://c6wyyoajwl6bs" path="res://src/objects/card_manager.tscn" id="1_gmttd"]
 [ext_resource type="FontFile" uid="uid://cb4c4w0twh2kk" path="res://src/fonts/LowresPixel-Regular.otf" id="3_rmx3l"]
 

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://c6wyyoajwl6bs"]
 
-[ext_resource type="Script" uid="uid://b2u7adaud56h4" path="res://src/objects/card_manager.gd" id="1_nigis"]
+[ext_resource type="Script" path="res://src/objects/card_manager.gd" id="1_nigis"]
 
 [node name="card_manager" type="Control"]
 layout_mode = 3
