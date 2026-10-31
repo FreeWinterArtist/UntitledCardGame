@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://c7m7qj8ed2rrj"]
+
+[ext_resource type="Script" uid="uid://dxr87e6syln2" path="res://src/objects/battle.gd" id="1_h57ps"]
+[ext_resource type="PackedScene" uid="uid://dys4xv0y5qfhu" path="res://src/objects/enemies/plains/weaklings/slime.tscn" id="3_h57ps"]
+[ext_resource type="PackedScene" uid="uid://c2lecurou7t8d" path="res://src/objects/player.tscn" id="3_l7xc3"]
+
+[node name="Battle" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_h57ps")
+
+[node name="Slime" parent="." instance=ExtResource("3_h57ps")]
+offset_left = 122.0
+offset_top = 197.0
+offset_right = 250.0
+offset_bottom = 325.0
+pivot_offset = Vector2(64, 64)
+
+[node name="Player" parent="." instance=ExtResource("3_l7xc3")]

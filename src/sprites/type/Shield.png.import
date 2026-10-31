@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cuo55gxq6oefj"
-path="res://.godot/imported/digitSheet.png-2eaf1e62cb5a10c3387b155358bf0581.ctex"
+uid="uid://vhvsjj0btutv"
+path="res://.godot/imported/Shield.png-e2bc6ef8f0eca5d22593f206bf8cf5eb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/objects/digitSheet.png"
-dest_files=["res://.godot/imported/digitSheet.png-2eaf1e62cb5a10c3387b155358bf0581.ctex"]
+source_file="res://src/sprites/type/Shield.png"
+dest_files=["res://.godot/imported/Shield.png-e2bc6ef8f0eca5d22593f206bf8cf5eb.ctex"]
 
 [params]
 

@@ -1,0 +1,46 @@
+[gd_scene load_steps=4 format=3 uid="uid://c2lecurou7t8d"]
+
+[ext_resource type="Script" uid="uid://ekjgu8hhb4wk" path="res://src/objects/player.gd" id="1_06am8"]
+[ext_resource type="PackedScene" uid="uid://c6wyyoajwl6bs" path="res://src/objects/card_manager.tscn" id="1_gmttd"]
+[ext_resource type="FontFile" uid="uid://cb4c4w0twh2kk" path="res://src/fonts/LowresPixel-Regular.otf" id="3_rmx3l"]
+
+[node name="Player" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_06am8")
+
+[node name="card_manager" parent="." instance=ExtResource("1_gmttd")]
+
+[node name="health_background" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 580.0
+offset_right = 314.0
+offset_bottom = 610.0
+color = Color(0, 0, 0, 1)
+
+[node name="health_bar" type="ColorRect" parent="health_background"]
+layout_direction = 2
+layout_mode = 0
+offset_left = 4.0
+offset_top = 3.0
+offset_right = 270.0
+offset_bottom = 27.0
+color = Color(0.625575, 1.43189e-06, 5.77569e-07, 1)
+
+[node name="health_label" type="Label" parent="health_background/health_bar"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 112.0
+offset_top = -2.0
+offset_right = 164.0
+offset_bottom = 28.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("3_rmx3l")
+theme_override_font_sizes/font_size = 29
+text = "1/1"
+horizontal_alignment = 1
+autowrap_mode = 2

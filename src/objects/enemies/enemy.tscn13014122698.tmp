@@ -1,0 +1,140 @@
+[gd_scene load_steps=6 format=3 uid="uid://bpcfrrtxkyurw"]
+
+[ext_resource type="Texture2D" uid="uid://vhvsjj0btutv" path="res://src/sprites/type/Shield.png" id="2_tdtqs"]
+[ext_resource type="Texture2D" uid="uid://db7t548apewj4" path="res://src/sprites/elements/Water.png" id="3_p1d7l"]
+[ext_resource type="FontFile" uid="uid://cb4c4w0twh2kk" path="res://src/fonts/LowresPixel-Regular.otf" id="3_uo5xy"]
+
+[sub_resource type="GDScript" id="GDScript_vomqg"]
+script/source = "extends Enemy
+
+func _ready()->void:
+	if not Engine.is_editor_hint():
+		return
+	super()
+	
+	_init_move_set()
+		
+func _init_move_set() -> void:
+	# Используем roundi(), чтобы не было конфликта float/int в Attack
+	move_set = [
+		Attack.new(level, GlobalTools.ElementType.keys()[ElementType.Water]),
+		Attack.new(roundi(level * 1.5), GlobalTools.ElementType.keys()[ElementType.Water]),
+		Attack.new(roundi(level * 0.5), GlobalTools.ElementType.keys()[ElementType.Earth])
+	]
+	print(\"Сработала функция обновления! Slime move_set:\", move_set)
+	update_turn_data(move_set[0],0)
+	_update_graphics()
+"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_hydtk"]
+load_path = "res://.godot/imported/Slime.png-503326fec47aa63c8a1c283eb1f68d28.ctex"
+
+[node name="Enemy" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 128.0
+offset_bottom = 128.0
+script = SubResource("GDScript_vomqg")
+
+[node name="EnemyRect" type="TextureRect" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
+scale = Vector2(2, 2)
+texture = SubResource("CompressedTexture2D_hydtk")
+
+[node name="LevelBackground" type="ColorRect" parent="EnemyRect"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 49.5
+offset_right = 14.0
+offset_bottom = 64.5
+color = Color(0, 0, 0, 1)
+metadata/_edit_group_ = true
+
+[node name="Level" type="Label" parent="EnemyRect/LevelBackground"]
+visibility_layer = 3
+texture_filter = 1
+layout_mode = 0
+offset_left = 1.5
+offset_top = -0.5
+offset_right = 42.5
+offset_bottom = 22.5
+scale = Vector2(0.58, 0.58)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 0
+theme_override_fonts/font = ExtResource("3_uo5xy")
+theme_override_font_sizes/font_size = 29
+text = "1"
+
+[node name="HPBackground" type="ColorRect" parent="EnemyRect"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 66.5
+offset_right = 61.0
+offset_bottom = 73.5
+color = Color(0, 0, 0, 1)
+metadata/_edit_group_ = true
+
+[node name="HPBar" type="ColorRect" parent="EnemyRect/HPBackground"]
+layout_direction = 2
+layout_mode = 0
+offset_left = 0.5
+offset_top = 1.0
+offset_right = 51.5
+offset_bottom = 6.0
+color = Color(0.625575, 1.43189e-06, 5.77569e-07, 1)
+
+[node name="HP" type="Label" parent="EnemyRect/HPBackground"]
+layout_mode = 0
+offset_left = 8.5
+offset_top = -6.0
+offset_right = 60.5
+offset_bottom = 24.0
+scale = Vector2(0.66, 0.66)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("3_uo5xy")
+theme_override_font_sizes/font_size = 29
+text = "1/1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TurnData" type="HBoxContainer" parent="."]
+texture_filter = 1
+layout_direction = 2
+layout_mode = 0
+offset_left = 15.0
+offset_top = 2.0
+offset_right = 93.0
+offset_bottom = 34.0
+scale = Vector2(1.2, 1.2)
+alignment = 1
+metadata/_edit_group_ = true
+
+[node name="Act" type="TextureRect" parent="TurnData"]
+texture_filter = 1
+layout_mode = 2
+texture = ExtResource("2_tdtqs")
+
+[node name="Power" type="Label" parent="TurnData/Act"]
+texture_filter = 1
+layout_mode = 2
+offset_left = 10.8333
+offset_top = 0.833339
+offset_right = 21.8333
+offset_bottom = 30.8333
+theme_override_colors/font_color = Color(0.801263, 4.23551e-06, 2.88785e-07, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("3_uo5xy")
+theme_override_font_sizes/font_size = 29
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Element" type="TextureRect" parent="TurnData"]
+texture_filter = 1
+layout_mode = 2
+texture = ExtResource("3_p1d7l")

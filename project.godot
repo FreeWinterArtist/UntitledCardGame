@@ -15,6 +15,11 @@ run/main_scene="uid://bbxjvlgbg0jdr"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+GlobalTools="*res://src/global_scripts/global_tools.gd"
+CardGlobalTools="*res://src/global_scripts/card_global_tools.gd"
+
 [display]
 
 window/size/viewport_width=360
