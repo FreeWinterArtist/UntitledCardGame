@@ -55,7 +55,7 @@ func update_hand_ui():
 
 func move_random_cards_from_deck() -> void:
 	check_deck()
-	var cards_to_draw = min(4, deck.size())
+	var cards_to_draw = min(4-hand.size(), deck.size())
 	for i in range(cards_to_draw):
 		var _picked_card: Card = deck[randi_range(0, deck.size() - 1)]
 		hand.append(_picked_card)
@@ -66,7 +66,7 @@ func move_random_cards_from_deck() -> void:
 func create_array_of_random_cards(amount: int) -> Array[Card]:
 	var array: Array[Card] = []
 	for i in range(amount):
-		array.append(pick_random_card(1, 2))
+		array.append(pick_random_card(4, 6))
 	return array
 
 func pick_random_card(min_power: int, max_power: int) -> Card:
@@ -94,11 +94,7 @@ func _on_card_used(_card: Card):
 		_card.hide()
 		_card.position.y=get_viewport_rect().size.y+100
 		discard_pile.append(_card)
-	if hand.size()<1:
 		move_random_cards_from_deck()
-	else:
-		update_hand_ui()
-
 
 func check_deck():
 	if deck.size() == 0:

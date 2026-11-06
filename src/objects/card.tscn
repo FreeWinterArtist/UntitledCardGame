@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://derkeb7e5hcxq" path="res://src/sprites/cards/Fire.png" id="2_et3bq"]
 [ext_resource type="Texture2D" uid="uid://dmk6nfq6malbj" path="res://src/sprites/cards/digitSheet.png" id="2_ipjng"]
 
-[node name="card" type="Control"]
+[node name="Card" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 80.0

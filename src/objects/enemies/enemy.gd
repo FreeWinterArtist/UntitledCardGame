@@ -8,8 +8,12 @@ class_name Enemy
 		_update_graphics()
 		update_level()
 
+var width:float
 var scale_tween:Tween
+var exhausted_tween:Tween
+var damage_tween:Tween
 var is_picked_up:bool=false
+var is_turn_taken:bool=false
 
 @onready var enemy_rect: TextureRect = $EnemyRect
 @onready var enemy_level: Label= $EnemyRect/LevelBackground/Level
@@ -40,9 +44,10 @@ var move_set:Array[Attack]
 func _gui_input(event: InputEvent) -> void:
 	if Engine.is_editor_hint():
 		return
+	if is_turn_taken:
+		return
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
-		if get_parent() and get_parent().has_method("set_active_enemy"):
-			get_parent().set_active_enemy(self)
+		EnemyGlobalTools.enemy_picked.emit(self)
 
 func _update_graphics()->void:
 	pass
@@ -51,6 +56,7 @@ func _ready() -> void:
 	default_HP_bar_size_x=HP_bar.size.x
 	_update_graphics()
 	_init_move_set()
+	width=size.x
 
 func _total_damage(enemy_attack:Attack,player_attack:Attack)->int:
 	var enemy_element:String=enemy_attack.element
@@ -73,6 +79,7 @@ func take_damage(enemy_attack:Attack,player_attack:Attack):
 	var damage:int=_total_damage(enemy_attack,player_attack)
 	health-=damage
 	print("The enemy took damage:", damage)
+	play_damage_flash()
 	update_enemy_health()
 
 func death():
@@ -112,19 +119,47 @@ func update_act_power(damage: int) -> void:
 func zoom_in():
 	if scale_tween and scale_tween.is_running():
 		scale_tween.kill()
-	var tween:Tween=create_tween()
+	scale_tween=create_tween()
 	
-	tween.tween_property(self,"scale",Vector2(1.2,1.2),0.5)\
+	scale_tween.tween_property(self,"scale",Vector2(1.2,1.2),0.5)\
 	.set_trans(Tween.TRANS_CUBIC)\
 	.set_ease(Tween.EASE_OUT)
 func zoom_out():
 	if scale_tween and scale_tween.is_running():
 		scale_tween.kill()
-	var tween:Tween=create_tween()
+	scale_tween=create_tween()
 	
-	tween.tween_property(self,"scale",Vector2(1,1),0.5)\
+	scale_tween.tween_property(self,"scale",Vector2(1,1),0.5)\
 	.set_trans(Tween.TRANS_CUBIC)\
 	.set_ease(Tween.EASE_OUT)
+
+func play_damage_flash():
+	if damage_tween and damage_tween.is_running():
+		damage_tween.kill()
+	damage_tween = create_tween()
+	
+	# 1. Мгновенно делаем спрайт ярко-красным
+	# Color(красный, зеленый, синий, альфа-канал)
+	enemy_rect.modulate = Color(2.0, 0.3, 0.3, 1.0) # Значение 2.0 дает эффект небольшого свечения (HDR)
+	
+	# 2. Плавно за 0.2 секунды возвращаем цвет к обычному (белому)
+	damage_tween.tween_property(enemy_rect, "modulate", Color.WHITE, 0.2)
+
+# Вызывать, когда враг закончил свой ход
+func set_exhausted_status():
+	if damage_tween and damage_tween.is_valid():
+		await damage_tween.finished
+	exhausted_tween = create_tween()
+	
+	if is_turn_taken:
+		# Окрашиваем в темно-серый цвет за 0.3 секунды
+		var target_color = Color(0.4, 0.4, 0.4, 1.0) 
+		exhausted_tween.tween_property(enemy_rect, "modulate", target_color, 0.3)
+	else:
+		# Возвращаем обычный цвет (для начала нового хода/раунда)
+		exhausted_tween.tween_property(enemy_rect, "modulate", Color.WHITE, 0.3)
+
+
 
 func _init_move_set()->void:
 	pass

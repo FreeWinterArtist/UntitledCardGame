@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 GlobalTools="*res://src/global_scripts/global_tools.gd"
 CardGlobalTools="*res://src/global_scripts/card_global_tools.gd"
+EnemyGlobalTools="*res://src/global_scripts/enemy_global_tools.gd"
 
 [display]
 

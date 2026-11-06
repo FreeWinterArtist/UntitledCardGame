@@ -2,8 +2,8 @@ extends Control
 
 class_name Player
 
-@onready var health_bar:ColorRect=$health_background/health_bar
-@onready var health_label:Label=$health_background/health_bar/health_label
+@onready var health_bar:ColorRect=$HealthBackground/HealthBar
+@onready var health_label:Label=$HealthBackground/HealthBar/HealthLabel
 
 @export var max_health:int=20:
 	set(value):
