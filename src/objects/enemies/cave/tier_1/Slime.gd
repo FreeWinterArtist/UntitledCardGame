@@ -11,7 +11,7 @@ func _init_move_set() -> void:
 	if move_set.size() > 0:
 		update_turn_data(move_set[0], 0)
 	
-	max_health=20
+	max_health=round(4.5*level)
 
 func _update_graphics() -> void:
 	if not enemy_rect: return

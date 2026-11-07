@@ -13,7 +13,6 @@ var is_acting:bool=false
 var player:Player
 
 func _ready()->void:
-	_create_enemies(1)
 	for i in get_children():
 		if i is Player:
 			player=i
@@ -63,8 +62,12 @@ func set_active_enemy(new_enemy:Enemy)->void:
 func _check_combat_trigger():
 	if active_card and active_enemy:
 		is_acting=true
+		
+		
 		if active_card.card_tween and active_card.card_tween.is_running():
 			await active_card.card_tween.finished
+			
+			
 		if active_enemy.scale_tween and active_enemy.scale_tween.is_running():
 			await active_enemy.scale_tween.finished
 		
@@ -81,33 +84,31 @@ func _check_combat_trigger():
 			player.take_damage(active_enemy.move_set[_turn], active_card.card_attack)
 			
 		active_enemy.is_turn_taken=true
-		if active_enemy.damage_tween.is_running():
-			await active_enemy.damage_tween.finished
-		active_enemy.set_exhausted_status()
-		
+			
 		var are_enemies_turns_taken:bool=true
 		for _enemy in enemies:
 			if !_enemy.is_alive:
 				_enemy.is_turn_taken=true
-		for _enemy in enemies:
+				
 			if !_enemy.is_turn_taken:
 				are_enemies_turns_taken=false
-				_turn = (turn+1) % len(active_enemy.move_set)
-				active_enemy.update_turn_data(active_enemy.move_set[_turn], turn)
-				break
+				
 		print("enemy turns are taken:", are_enemies_turns_taken)
 		
 		if are_enemies_turns_taken:
 			turn += 1
 			for _enemy in enemies:
 				_turn = turn % len(_enemy.move_set)
-				_enemy.is_turn_taken=false
-				_enemy.set_exhausted_status()
+				if !_enemy.is_alive:
+					_enemy.is_turn_taken=true
+				else:
+					_enemy.is_turn_taken=false
 				_enemy.update_turn_data(_enemy.move_set[_turn],turn)
 		
 		var _used_card:Card=active_card
 		_after_card_is_used()
 		CardGlobalTools.card_is_used.emit(_used_card)
+		await get_tree().create_timer(0.5).timeout
 		_reset_enemy_selection()
 		is_acting=false
 
@@ -128,12 +129,13 @@ func _input(event:InputEvent)->void:
 		if !is_card_selected and !is_enemy_selected:
 			_reset_selection()
 			
-func _create_enemies(tier:int)->void:
-	var enemy_amount:int=randi_range(2,2)
+func create_enemies(tier:int,min_level:int,max_level:int,min_enemy_amount:int,max_enemy_amount:int)->void:
+	var enemy_amount:int=randi_range(min_enemy_amount,max_enemy_amount)
 	for i in range(enemy_amount):
 		var new_enemy=EnemyGlobalTools.spawn_enemy_by_tier(tier)
+		var random_level:int=randi_range(min_level,max_level)
+		new_enemy.level=random_level
 		add_child(new_enemy)
-		print(new_enemy.position)
 		enemies.append(new_enemy)
 	living_enemies=enemies.size()
 	_update_enemy_ui()

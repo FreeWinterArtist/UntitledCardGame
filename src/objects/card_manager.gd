@@ -45,12 +45,14 @@ func update_hand_ui():
 			hand[i].card_tween.kill()
 		hand[i].show()
 		hand[i].scale=Vector2.ONE
+		hand[i].card_tween=create_tween()
+		
 		var card_x = gap + i * (card_width + gap)
-		
 		var card_y = get_viewport_rect().size.y - hand[i].get_rect().size.y*1.3
-		hand[i].start_y=card_y
 		
-		hand[i].position = Vector2(card_x, card_y)
+		hand[i].card_tween.tween_property(hand[i],"position",Vector2(card_x,card_y),0.2)
+		hand[i].start_y=card_y
+		#hand[i].position = Vector2(card_x, card_y)
 
 
 func move_random_cards_from_deck() -> void:
@@ -59,6 +61,7 @@ func move_random_cards_from_deck() -> void:
 	for i in range(cards_to_draw):
 		var _picked_card: Card = deck[randi_range(0, deck.size() - 1)]
 		hand.append(_picked_card)
+		_picked_card.position=Vector2(get_viewport_rect().size.x+100,get_viewport_rect().size.y - hand[i].get_rect().size.y*1.3)
 		deck.erase(_picked_card)
 		
 	update_hand_ui()
@@ -66,7 +69,7 @@ func move_random_cards_from_deck() -> void:
 func create_array_of_random_cards(amount: int) -> Array[Card]:
 	var array: Array[Card] = []
 	for i in range(amount):
-		array.append(pick_random_card(4, 6))
+		array.append(pick_random_card(1, 3))
 	return array
 
 func pick_random_card(min_power: int, max_power: int) -> Card:

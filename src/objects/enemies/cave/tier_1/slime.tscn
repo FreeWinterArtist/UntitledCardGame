@@ -7,14 +7,15 @@
 [node name="Slime" instance=ExtResource("1_xe7qn")]
 pivot_offset = Vector2(64, 64)
 script = ExtResource("2_f2k28")
-max_health = 20
-health = 20
+level = 1
+max_health = 4
+health = 4
 
 [node name="EnemyRect" parent="." index="0"]
 texture = ExtResource("3_f2k28")
 
 [node name="HP" parent="EnemyRect/HPBackground" index="1"]
-text = "20/20"
+text = "4/4"
 
 [node name="TurnData" parent="." index="1"]
 offset_left = 5.0

@@ -2,7 +2,7 @@
 extends Control
 class_name Enemy
 
-@export var level: int=1:
+@export var level: int=0:
 	set(value):
 		level=value
 		_update_graphics()
@@ -13,7 +13,11 @@ var scale_tween:Tween
 var exhausted_tween:Tween
 var damage_tween:Tween
 var is_picked_up:bool=false
-var is_turn_taken:bool=false
+var is_turn_taken:bool=false:
+	set(value):
+		is_turn_taken=value
+		if is_alive:
+			set_exhausted_status(value)
 
 @onready var enemy_rect: TextureRect = $EnemyRect
 @onready var enemy_level: Label= $EnemyRect/LevelBackground/Level
@@ -79,8 +83,9 @@ func take_damage(enemy_attack:Attack,player_attack:Attack):
 	var damage:int=_total_damage(enemy_attack,player_attack)
 	health-=damage
 	print("The enemy took damage:", damage)
-	play_damage_flash()
-	update_enemy_health()
+	if damage!=0:
+		play_damage_flash()
+		update_enemy_health()
 
 func death():
 	is_alive=false
@@ -146,12 +151,15 @@ func play_damage_flash():
 	damage_tween.tween_property(enemy_rect, "modulate", Color.WHITE, 0.2)
 
 # Вызывать, когда враг закончил свой ход
-func set_exhausted_status():
-	if damage_tween and damage_tween.is_valid():
+func set_exhausted_status(exhausted:bool):
+	if damage_tween and damage_tween.is_running():
 		await damage_tween.finished
+	if exhausted_tween and exhausted_tween.is_running():
+		await exhausted_tween.finished
 	exhausted_tween = create_tween()
 	
-	if is_turn_taken:
+	
+	if exhausted:
 		# Окрашиваем в темно-серый цвет за 0.3 секунды
 		var target_color = Color(0.4, 0.4, 0.4, 1.0) 
 		exhausted_tween.tween_property(enemy_rect, "modulate", target_color, 0.3)

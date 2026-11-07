@@ -21,7 +21,6 @@ var is_picked_up:bool=false
 
 var start_y:float=0.0
 var max_y:float=0.0
-var is_start_y_set:bool=false
 
 func _update_graphics()->void:
 	if not is_inside_tree() or cardRect==null:
@@ -43,7 +42,6 @@ func _ready() -> void:
 	max_y=size.y/2
 	if not Engine.is_editor_hint():
 		start_y=global_position.y
-		is_start_y_set=true
 
 
 func _gui_input(event: InputEvent) -> void:
