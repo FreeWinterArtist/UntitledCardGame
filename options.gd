@@ -9,23 +9,33 @@ const SCENE_MENU = "res://src/objects/main_menu.tscn"
 @onready var back_button = $VBoxContainer/BackButton
 
 func _ready():
-	# Подключаем сигналы
-	music_slider.value_changed.connect(_on_music_changed)
-	sound_slider.value_changed.connect(_on_sound_changed)
-	lang_option.item_selected.connect(_on_language_changed)
-	back_button.pressed.connect(_on_back_pressed)
+	print("=== Настройки загружены ===")
+	print("MusicSlider: ", music_slider)
+	print("SoundSlider: ", sound_slider)
+	print("LangOption: ", lang_option)
+	print("BackButton: ", back_button)
+	
+	# Безопасное подключение сигналов (если узел найден)
+	if music_slider:
+		music_slider.value_changed.connect(_on_music_changed)
+	if sound_slider:
+		sound_slider.value_changed.connect(_on_sound_changed)
+	if lang_option:
+		lang_option.item_selected.connect(_on_language_changed)
+	if back_button:
+		back_button.pressed.connect(_on_back_pressed)
 	
 	# Загружаем сохранённые настройки
 	load_settings()
 
 func _on_music_changed(value: float):
 	var db = linear_to_db(value / 100.0)
-	AudioServer.set_bus_volume_db(1, db)
+	AudioServer.set_bus_volume_db(1, db) # 1 - индекс шины Music
 	save_settings()
 
 func _on_sound_changed(value: float):
 	var db = linear_to_db(value / 100.0)
-	AudioServer.set_bus_volume_db(2, db)
+	AudioServer.set_bus_volume_db(2, db) # 2 - индекс шины SFX
 	save_settings()
 
 func _on_language_changed(index: int):
@@ -33,6 +43,7 @@ func _on_language_changed(index: int):
 	save_settings()
 
 func _on_back_pressed():
+	print("Нажата кнопка Назад")
 	get_tree().change_scene_to_file(SCENE_MENU)
 
 func save_settings():
@@ -45,10 +56,17 @@ func save_settings():
 func load_settings():
 	var config = ConfigFile.new()
 	if config.load(CONFIG_PATH) != OK:
+		print("Файл настроек не найден, используем дефолтные.")
 		return
-	music_slider.value = config.get_value("audio", "music_volume", 100.0)
-	sound_slider.value = config.get_value("audio", "sound_volume", 100.0)
-	lang_option.selected = config.get_value("general", "language", 0)
-	_on_music_changed(music_slider.value)
-	_on_sound_changed(sound_slider.value)
-	_on_language_changed(lang_option.selected)
+		
+	if music_slider:
+		music_slider.value = config.get_value("audio", "music_volume", 100.0)
+	if sound_slider:
+		sound_slider.value = config.get_value("audio", "sound_volume", 100.0)
+	if lang_option:
+		lang_option.selected = config.get_value("general", "language", 0)
+	
+	# Применяем настройки сразу при загрузке
+	if music_slider: _on_music_changed(music_slider.value)
+	if sound_slider: _on_sound_changed(sound_slider.value)
+	if lang_option: _on_language_changed(lang_option.selected)

@@ -51,7 +51,7 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "Music"
 
-[node name="MusicSLider" type="HSlider" parent="VBoxContainer/MusicRow"]
+[node name="MusicSlider" type="HSlider" parent="VBoxContainer/MusicRow"]
 custom_minimum_size = Vector2(200, 40)
 layout_mode = 2
 value = 100.0
@@ -66,7 +66,7 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "Sounds"
 
-[node name="SoundSLider" type="HSlider" parent="VBoxContainer/SoundRow"]
+[node name="SoundSlider" type="HSlider" parent="VBoxContainer/SoundRow"]
 custom_minimum_size = Vector2(200, 40)
 layout_mode = 2
 value = 100.0
