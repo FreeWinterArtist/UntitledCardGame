@@ -1,7 +1,192 @@
-[gd_scene format=3 uid="uid://blu6pfdhq3bff"]
+[gd_scene load_steps=3 format=3 uid="uid://blu6pfdhq3bff"]
 
-[node name="GameMap" type="Control"]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[ext_resource type="Script" uid="uid://drl28pl5nbmls" path="res://src/objects/game_map.gd" id="1_xordb"]
+[ext_resource type="Script" uid="uid://bbajnh0pr58l0" path="res://src/objects/scroll_container.gd" id="2_12qkw"]
+
+[node name="GameMap" type="Node2D"]
+script = ExtResource("1_xordb")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="UI TOp" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="BackButton" type="Button" parent="UI TOp"]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 80.0
+offset_bottom = 83.0
+theme_override_font_sizes/font_size = 40
+text = "←"
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="HintLabel" type="Label" parent="UI"]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -23.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 40
+
+[node name="ScrollContainer" type="ScrollContainer" parent="UI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+script = ExtResource("2_12qkw")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 3
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 80
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 80
+
+[node name="RoomsContainer" type="VBoxContainer" parent="UI/ScrollContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 40
+alignment = 2
+
+[node name="boss room 11" type="MarginContainer" parent="UI/ScrollContainer/MarginContainer/RoomsContainer"]
+layout_mode = 2
+
+[node name="Roomweak11" type="Button" parent="UI/ScrollContainer/MarginContainer/RoomsContainer/boss room 11"]
+custom_minimum_size = Vector2(90, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "11"
+
+[node name="Forge or chest 10" type="MarginContainer" parent="UI/ScrollContainer/MarginContainer/RoomsContainer"]
+layout_mode = 2
+theme_override_constants/margin_right = -40
+
+[node name="Roomweak10" type="Button" parent="UI/ScrollContainer/MarginContainer/RoomsContainer/Forge or chest 10"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 40
+text = "10"
+
+[node name="room 9" type="MarginContainer" parent="UI/ScrollContainer/MarginContainer/RoomsContainer"]
+layout_mode = 2
+
+[node name="Roomweak9" type="Button" parent="UI/ScrollContainer/MarginContainer/RoomsContainer/room 9"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 40
+text = "9"
+
+[node name="Forge or chest 8" type="MarginContainer" parent="UI/ScrollContainer/MarginContainer/RoomsContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = -40
+
+[node name="Roomweak8" type="Button" parent="UI/ScrollContainer/MarginContainer/RoomsContainer/Forge or chest 8"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 40
+text = "8"
+
+[node name="room 7" type="MarginContainer" parent="UI/ScrollContainer/MarginContainer/RoomsContainer"]
+layout_mode = 2
+
+[node name="Roomweak7" type="Button" parent="UI/ScrollContainer/MarginContainer/RoomsContainer/room 7"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 40
+text = "7"
+
+[node name="Forge or chest 6" type="MarginContainer" parent="UI/ScrollContainer/MarginContainer/RoomsContainer"]
+layout_mode = 2
+theme_override_constants/margin_right = -40
+
+[node name="Roomweak6" type="Button" parent="UI/ScrollContainer/MarginContainer/RoomsContainer/Forge or chest 6"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 40
+text = "6"
+
+[node name="room 5" type="MarginContainer" parent="UI/ScrollContainer/MarginContainer/RoomsContainer"]
+layout_mode = 2
+
+[node name="Roomweak5" type="Button" parent="UI/ScrollContainer/MarginContainer/RoomsContainer/room 5"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 40
+text = "5"
+
+[node name="room 4" type="MarginContainer" parent="UI/ScrollContainer/MarginContainer/RoomsContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = -40
+
+[node name="Roomweak4" type="Button" parent="UI/ScrollContainer/MarginContainer/RoomsContainer/room 4"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 40
+text = "4
+"
+
+[node name="Forge or chest 3" type="MarginContainer" parent="UI/ScrollContainer/MarginContainer/RoomsContainer"]
+layout_mode = 2
+
+[node name="ForC3" type="Button" parent="UI/ScrollContainer/MarginContainer/RoomsContainer/Forge or chest 3"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 40
+text = "3"
+
+[node name="room 2" type="MarginContainer" parent="UI/ScrollContainer/MarginContainer/RoomsContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/margin_right = -40
+
+[node name="Roomweak2" type="Button" parent="UI/ScrollContainer/MarginContainer/RoomsContainer/room 2"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 40
+text = "2"
+
+[node name="room 1" type="MarginContainer" parent="UI/ScrollContainer/MarginContainer/RoomsContainer"]
+layout_mode = 2
+
+[node name="Roomweak1" type="Button" parent="UI/ScrollContainer/MarginContainer/RoomsContainer/room 1"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 40
+text = "1"
+
+[connection signal="pressed" from="UI TOp/BackButton" to="." method="_on_back_button_pressed"]
